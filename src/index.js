@@ -29,7 +29,6 @@ const render = (page) => {
 render("productlisting");
 
 DataStore.subscribe(function(){
-  debugger;
   render("productlisting")
 })
 

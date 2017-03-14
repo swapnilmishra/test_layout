@@ -50,10 +50,17 @@ class ProductListing extends React.Component {
     let filteredProducts;
     if (filterBy === "price") {
       priceFilters.add(value);
+      filteredProducts = filterByPrice(this.products, priceFilters);
+      DataStore.setStore('products', filteredProducts)
     } else if (filterBy === "brand") {
       brandFilters.add(value);
       filteredProducts = filterByBrand(DataStore.originalData, brandFilters);
-      DataStore.setStore("products", filteredProducts);
+      if(priceFilters.size > 0 ){
+        DataStore.setStore("products", filterByPrice(filteredProducts, priceFilters));
+      }
+      else {
+        DataStore.setStore("products", filteredProducts);
+      }
     }
   };
 
@@ -67,11 +74,30 @@ class ProductListing extends React.Component {
           filterByPrice(this.products, priceFilters)
         );
       }
+      else if(brandFilters.size > 0){
+        filteredProducts = filterByBrand(DataStore.originalData, brandFilters);
+        DataStore.setStore("products",filteredProducts)
+      }
+      else {
+        DataStore.setStore("products",DataStore.originalData)
+      }
     } else if (filterBy === "brand") {
       brandFilters.delete(value);
       if (brandFilters.size > 0) {
         filteredProducts = filterByBrand(DataStore.originalData, brandFilters);
-        DataStore.setStore("products", filteredProducts);
+        if(priceFilters.size > 0 ){
+          DataStore.setStore("products",filterByPrice(filteredProducts, priceFilters))
+        }
+        else {
+          DataStore.setStore("products", filteredProducts);
+        }
+      }
+      else if(priceFilters.size > 0 ){
+        filteredProducts = filterByPrice(DataStore.originalData, priceFilters);
+        DataStore.setStore("products",filteredProducts)
+      }
+      else {
+        DataStore.setStore("products",DataStore.originalData)
       }
     }
   };
