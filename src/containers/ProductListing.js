@@ -46,60 +46,45 @@ class ProductListing extends React.Component {
     });
   }
 
+  /**
+   * @param filterBy : String
+   * @param value : String
+   * 
+   * Brand filter takes precedence over price filter i.e whenever a brand filter is applied
+   * filtering is done on originalData after which any other filter i.e price is applied
+   */
   handleAddFilter = (filterBy, value) => {
-    let filteredProducts;
+    let filteredProducts = DataStore.originalData;
     if (filterBy === "price") {
       priceFilters.add(value);
-      filteredProducts = filterByPrice(this.products, priceFilters);
-      DataStore.setStore('products', filteredProducts)
-    } else if (filterBy === "brand") {
-      brandFilters.add(value);
-      filteredProducts = filterByBrand(DataStore.originalData, brandFilters);
-      if(priceFilters.size > 0 ){
-        DataStore.setStore("products", filterByPrice(filteredProducts, priceFilters));
-      }
-      else {
-        DataStore.setStore("products", filteredProducts);
-      }
     }
+    else if (filterBy === "brand") {
+      brandFilters.add(value)
+    }
+    if(brandFilters.size > 0){
+      filteredProducts = filterByBrand(filteredProducts, brandFilters);
+    }
+    if(priceFilters.size > 0 ){
+      filteredProducts = filterByPrice(filteredProducts, priceFilters)
+    }
+    DataStore.setStore('products',filteredProducts)
   };
 
   handleRemoveFilter = (filterBy, value) => {
-    let filteredProducts;
+    let filteredProducts = DataStore.originalData;
     if (filterBy === "price") {
       priceFilters.delete(value);
-      if (priceFilters.size > 0) {
-        DataStore.setStore(
-          "products",
-          filterByPrice(this.products, priceFilters)
-        );
-      }
-      else if(brandFilters.size > 0){
-        filteredProducts = filterByBrand(DataStore.originalData, brandFilters);
-        DataStore.setStore("products",filteredProducts)
-      }
-      else {
-        DataStore.setStore("products",DataStore.originalData)
-      }
-    } else if (filterBy === "brand") {
-      brandFilters.delete(value);
-      if (brandFilters.size > 0) {
-        filteredProducts = filterByBrand(DataStore.originalData, brandFilters);
-        if(priceFilters.size > 0 ){
-          DataStore.setStore("products",filterByPrice(filteredProducts, priceFilters))
-        }
-        else {
-          DataStore.setStore("products", filteredProducts);
-        }
-      }
-      else if(priceFilters.size > 0 ){
-        filteredProducts = filterByPrice(DataStore.originalData, priceFilters);
-        DataStore.setStore("products",filteredProducts)
-      }
-      else {
-        DataStore.setStore("products",DataStore.originalData)
-      }
     }
-  };
+    else if (filterBy === "brand") {
+      brandFilters.delete(value);
+    }
+    if(brandFilters.size > 0){
+      filteredProducts = filterByBrand(filteredProducts, brandFilters);
+    }
+    if(priceFilters.size > 0 ){
+      filteredProducts = filterByPrice(filteredProducts, priceFilters)
+    }
+    DataStore.setStore('products',filteredProducts)
+  }
 }
 export default ProductListing;
