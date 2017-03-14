@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import productData from "./api/products";
 import { AppContainer } from "react-hot-loader";
 // AppContainer is a necessary wrapper component for HMR
 import ProductListing from "containers/ProductListing";
 import Cart from "containers/Cart";
 import ProductPage from "containers/ProductPage";
+import DataStore from 'store/datastore';
 
-const render = (page, productData, sortBy) => {
+
+const render = (page) => {
   ReactDOM.render(
     <div>
       <a href="javascript:void(0)" onClick={() => setPage("productlisting")}>
@@ -25,7 +26,7 @@ const render = (page, productData, sortBy) => {
   );
 };
 
-render("productlisting", productData);
+render("productlisting");
 
 function setPage(page) {
   render(page);
@@ -33,11 +34,11 @@ function setPage(page) {
 
 function getComponentToBeRendered(page) {
   if (page === "productpage") {
-    return <ProductPage />;
+    return <ProductPage productPageData={DataStore.getStore().productPageData}/>;
   } else if (page === "cart") {
-    return <Cart />;
+    return <Cart cartData={DataStore.getStore().cartData}/>;
   } else {
-    return <ProductListing productData={productData} />;
+    return <ProductListing productData={DataStore.getStore().productData} />;
   }
 }
 

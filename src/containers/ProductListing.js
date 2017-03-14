@@ -1,13 +1,16 @@
 import React from "react";
+import ProductGrid from 'components/ProductGrid.jsx'
 
-class ProductGrid extends React.Component {
+class ProductListing extends React.Component {
   constructor(props) {
     super(props)
   }
   render() {
     return (
-      <div>ProductListing</div>
+      <div>
+       <ProductGrid products={this.props.productData.products}/>
+      </div>
     );
   }
 }
-export default ProductGrid;
+export default ProductListing;

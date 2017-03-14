@@ -5,8 +5,13 @@ class ProductThumb extends React.Component {
     super(props)
   }
   render() {
+    const {productDetails} = this.props
+    const imagePath = `img/${productDetails.image}`
     return (
-      <div>ProductThumb</div>
+      <div className='flex-child'>
+        <div>{productDetails.name}</div>
+        <img src={imagePath} alt="{productDetails.name}"/>
+      </div>
     );
   }
 }

@@ -46,7 +46,9 @@ module.exports = function(env) {
     resolve: {
       alias: {
         containers: resolve(__dirname, "src/containers"),
-        components: resolve(__dirname, "src/components")
+        components: resolve(__dirname, "src/components"),
+        store: resolve(__dirname, "src/store"),
+        api: resolve(__dirname, "src/api")
       }
     }
   };
