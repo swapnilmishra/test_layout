@@ -14,8 +14,9 @@ class ProductGrid extends React.Component {
   }
 
   getGridItems(data) {
+    let key = 0;
     return data.map(function(productDetails){
-      return <ProductThumb productDetails={productDetails} />
+      return <ProductThumb productDetails={productDetails} key={key++}/>
     })
   }
 }
