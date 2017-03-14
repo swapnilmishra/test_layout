@@ -28,17 +28,22 @@ const render = (page) => {
 
 render("productlisting");
 
+DataStore.subscribe(function(){
+  debugger;
+  render("productlisting")
+})
+
 function setPage(page) {
   render(page);
 }
 
 function getComponentToBeRendered(page) {
   if (page === "productpage") {
-    return <ProductPage productPageData={DataStore.getStore().productPageData}/>;
+    return <ProductPage products={DataStore.getStore().products}/>;
   } else if (page === "cart") {
     return <Cart cartData={DataStore.getStore().cartData}/>;
   } else {
-    return <ProductListing productData={DataStore.getStore().productData} />;
+    return <ProductListing products={DataStore.getStore().products} filters={DataStore.getStore().filters}/>;
   }
 }
 

@@ -1,20 +1,24 @@
 import productData from "api/products";
 
 const dataStore = {
-    productData : productData,
+    products : productData.products,
+    originalData : productData.products,
+    filters  : productData.filters,
     cartData : {},
-    productPageData : {}
+    productPageData : {},
+    cbArray : [],
+    subscribe(cb){
+        this.cbArray.push(cb)
+    },
+    setStore(key,data){
+        dataStore[key] = data
+        this.cbArray.forEach((cb) => {
+            cb()
+        })
+    },
+    getStore(){
+        return dataStore
+    }
 }
 
-function getStore(){
-    return dataStore
-}
-
-function setStore(key,data){
-    dataStore[key] = data
-}
-
-export default {
-    setStore,
-    getStore
-}
+export default dataStore;
