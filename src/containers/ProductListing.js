@@ -54,13 +54,17 @@ class ProductListing extends React.Component {
    * filtering is done on originalData after which any other filter i.e price is applied
    */
   handleAddFilter = (filterBy, value) => {
-    let filteredProducts = DataStore.originalData;
     if (filterBy === "price") {
       priceFilters.add(value);
     }
     else if (filterBy === "brand") {
       brandFilters.add(value)
     }
+    this.setProductStore()
+  }
+
+  setProductStore(){
+    let filteredProducts = DataStore.originalData;
     if(brandFilters.size > 0){
       filteredProducts = filterByBrand(filteredProducts, brandFilters);
     }
@@ -68,7 +72,7 @@ class ProductListing extends React.Component {
       filteredProducts = filterByPrice(filteredProducts, priceFilters)
     }
     DataStore.setStore('products',filteredProducts)
-  };
+  }
 
   handleRemoveFilter = (filterBy, value) => {
     let filteredProducts = DataStore.originalData;
@@ -78,13 +82,7 @@ class ProductListing extends React.Component {
     else if (filterBy === "brand") {
       brandFilters.delete(value);
     }
-    if(brandFilters.size > 0){
-      filteredProducts = filterByBrand(filteredProducts, brandFilters);
-    }
-    if(priceFilters.size > 0 ){
-      filteredProducts = filterByPrice(filteredProducts, priceFilters)
-    }
-    DataStore.setStore('products',filteredProducts)
+    this.setProductStore()
   }
 }
 export default ProductListing;
