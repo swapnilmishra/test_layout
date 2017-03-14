@@ -1,14 +1,13 @@
 import React from "react";
 
-class App extends React.Component {
+class Product extends React.Component {
   constructor(props) {
     super(props)
-    debugger;
   }
   render() {
     return (
-      <div>Hello</div>
+      <div>Product</div>
     );
   }
 }
-export default App;
+export default Product;

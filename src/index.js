@@ -1,55 +1,49 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import productData from "./api/products";
-import {AppContainer} from "react-hot-loader";
+import { AppContainer } from "react-hot-loader";
 // AppContainer is a necessary wrapper component for HMR
-import App from "containers/App";
+import ProductListing from "containers/ProductListing";
+import Cart from "containers/Cart";
+import ProductPage from "containers/ProductPage";
 
-const render = (Component, productData, sortBy) => {
+const render = (page, productData, sortBy) => {
   ReactDOM.render(
-    <AppContainer>
-      <Component
-        productData={productData}
-      />
-    </AppContainer>,
+    <div>
+      <a href="javascript:void(0)" onClick={() => setPage("productlisting")}>
+        {" "}ProductListing
+      </a>
+      <a href="javascript:void(0)" onClick={() => setPage("cart")}> Cart</a>
+      <a href="javascript:void(0)" onClick={() => setPage("productpage")}>
+        {" "}ProductPage
+      </a>
+      <AppContainer>
+        {getComponentToBeRendered(page)}
+      </AppContainer>
+    </div>,
     document.getElementById("root")
   );
 };
 
-function onSearch(value) {
-  if (value.trim() == "") {
-    render(App, productData);
+render("productlisting", productData);
+
+function setPage(page) {
+  render(page);
+}
+
+function getComponentToBeRendered(page) {
+  if (page === "productpage") {
+    return <ProductPage />;
+  } else if (page === "cart") {
+    return <Cart />;
+  } else {
+    return <ProductListing productData={productData} />;
   }
-  const regex = new RegExp(value.toLowerCase(), "i");
-  const data = productData.filter(project => {
-    return regex.test(project.projectName.toLowerCase());
-  });
-
-  render(App, data);
 }
-
-function onSortBy(sortBy) {
-  sortBy = sortBy;
-  const data = _.sortBy(productData, function(project) {
-    return project[sortBy];
-  });
-  render(App, data.reverse(), sortBy);
-}
-
-function clearSortResult(){
-  render(App, productData);
-}
-
-// setTimeout(()=>{
-  render(App, productData);
-// },3000);
-
-// render(App, undefined);
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept("containers/App", () => {
-    const NewApp = require("containers/App").default;
-    render(NewApp,productData);
+  module.hot.accept("containers/ProductListing", () => {
+    render("productpage", productData);
   });
 }
