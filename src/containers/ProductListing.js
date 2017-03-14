@@ -17,7 +17,7 @@ class ProductListing extends React.Component {
     return (
       <div>
         {this.createProductFilters(filters)}
-        <ProductGrid products={this.products} />
+        <ProductGrid products={this.products} addToCartCB={this.handleAddToCart} thumbClickCB={this.handleThumbClick}/>
       </div>
     );
   }
@@ -85,6 +85,17 @@ class ProductListing extends React.Component {
       filteredProducts = filterByPrice(filteredProducts, priceFilters)
     }
     DataStore.setStore('products',filteredProducts)
+  }
+
+  handleAddToCart(productData){
+    const store = DataStore.getStore()
+    store.cartData.push(productData)
+  }
+
+  handleThumbClick = (productData) => {
+    const store = DataStore.getStore()
+    store.productPageData = productData
+    this.props.showProductPage()
   }
 }
 export default ProductListing;

@@ -1,4 +1,5 @@
 import React from "react";
+import ProductGrid from "components/ProductGrid.jsx";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -6,7 +7,9 @@ class Cart extends React.Component {
   }
   render() {
     return (
-      <div>Cart</div>
+      <div>
+        <ProductGrid products={this.props.cartData}/>
+      </div>
     );
   }
 }

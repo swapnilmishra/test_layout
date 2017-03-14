@@ -4,20 +4,20 @@ const dataStore = {
     products : productData.products,
     originalData : productData.products,
     filters  : productData.filters,
-    cartData : {},
+    cartData : [],
     productPageData : {},
     cbArray : [],
     subscribe(cb){
         this.cbArray.push(cb)
     },
     setStore(key,data){
-        dataStore[key] = data
+        this[key] = data
         this.cbArray.forEach((cb) => {
             cb()
         })
     },
     getStore(){
-        return dataStore
+        return this
     }
 }
 
