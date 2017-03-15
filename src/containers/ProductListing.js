@@ -5,6 +5,7 @@ import Filter from "components/Filter.jsx";
 import { filterByPrice, filterByBrand } from "utils/filter";
 import DataStore from "store/datastore";
 
+// Data structures to hold price and brand filters
 const priceFilters = new Set();
 const brandFilters = new Set();
 
@@ -70,8 +71,8 @@ class ProductListing extends React.Component {
   }
 
   /**
-   * @param filterBy : String
-   * @param value : String
+   * @param {String} filterBy
+   * @param {String} value
    * 
    */
   handleAddFilter = (filterBy, value) => {
@@ -83,6 +84,11 @@ class ProductListing extends React.Component {
     this.setProductStore();
   };
 
+  /**
+   * @param {String} filterBy
+   * @param {String} value
+   * 
+   */
   handleRemoveFilter = (filterBy, value) => {
     let filteredProducts = DataStore.originalData;
     if (filterBy === "price") {
@@ -108,6 +114,14 @@ class ProductListing extends React.Component {
     DataStore.setStore("products", filteredProducts);
   }
 
+  /**
+   * @param {Object} productData 
+   * 
+   * This function handles addCart functionality.
+   * It takes the details which are passed to it and pushes
+   * the date in store which triggers re-render.
+   */
+
   handleAddToCart(productData) {
     const store = DataStore.getStore();
     const temp = store.cartData.concat([]);
@@ -115,6 +129,10 @@ class ProductListing extends React.Component {
     DataStore.setStore("cartData", temp);
   }
 
+  /**
+   * Clicking on product we set the product data and 
+   * call showProductPage to render product description page
+   */
   handleThumbClick = productData => {
     const store = DataStore.getStore();
     store.productPageData = productData;

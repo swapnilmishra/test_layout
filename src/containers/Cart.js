@@ -47,6 +47,13 @@ class Cart extends React.Component {
     );
   };
 
+  /**
+   * @param {Object} productData 
+   * 
+   * This function handles addCart functionality.
+   * It takes the details which are passed to it and pushes
+   * the date in store which triggers re-render.
+   */
   handleAddToCart(productData) {
     const store = DataStore.getStore();
     const temp = store.cartData.concat([]);
@@ -54,6 +61,10 @@ class Cart extends React.Component {
     DataStore.setStore("cartData", temp);
   }
 
+  /**
+   * Clicking on product we set the product data and 
+   * call showProductPage to render product description page
+   */
   handleThumbClick = productData => {
     const store = DataStore.getStore();
     store.productPageData = productData;

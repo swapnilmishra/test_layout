@@ -1,3 +1,6 @@
+/**
+ * Container for viewing the product description page
+ */
 import React from "react";
 import ProductDesc from 'components/ProductDescription.jsx'
 import Navbar from "components/Navbar.jsx";
@@ -11,6 +14,9 @@ class Product extends React.Component {
     const {cartDataLength } = this.props;
     return (
       <div>
+        {/*
+          Creating navbar
+        */}
         <Navbar>
           <div className='navbar-actions'>
             <div className='nav-button-outer cart-button'>
@@ -35,6 +41,13 @@ class Product extends React.Component {
     );
   }
 
+  /**
+   * @param {Object} productData 
+   * 
+   * This function handles addCart functionality.
+   * It takes the details which are passed to it and pushes
+   * the date in store which triggers re-render.
+   */
   handleAddToCart(productData){
     const store = DataStore.getStore();
     const temp = store.cartData.concat([]);
