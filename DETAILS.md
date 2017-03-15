@@ -25,3 +25,8 @@ This is done to avoid rememering paths and simplify the workflow.
 * Webpack,Babel - for building and compiling JSX,ES6
 * Webpack dev and prod build with different configs
 
+## TDB
+
+Few things missing here are
+* Url change using history api so the navigation is only possible using buttons
+* The store is a handrolled one
