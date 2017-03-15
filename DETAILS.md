@@ -21,6 +21,7 @@ This is done to avoid rememering paths and simplify the workflow.
 ## Tech stack
 
 * ReactJS - for view
+* Type checking with React.propTypes whereever possible.
 * Webpack,Babel - for building and compiling JSX,ES6
 * Webpack dev and prod build with different configs
 
