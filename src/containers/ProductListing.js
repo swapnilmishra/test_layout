@@ -19,7 +19,7 @@ class ProductListing extends React.Component {
       <div>
         <Navbar>
           <div className='navbar-actions'>
-            <div className='cart-button'>
+            <div className='nav-button-outer cart-button'>
               {cartDataLength ? <span className='cart-badge'>{cartDataLength}</span> : ''}
               <a
               href="javascript:void(0)"

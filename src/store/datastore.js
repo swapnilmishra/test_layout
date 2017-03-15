@@ -7,6 +7,7 @@ const dataStore = {
     cartData : [],
     productPageData : {},
     cbArray : [],
+    currentPage : 'productlisting',
     subscribe(cb){
         this.cbArray.push(cb)
     },

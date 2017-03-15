@@ -10,13 +10,6 @@ import DataStore from "store/datastore";
 const render = page => {
   ReactDOM.render(
     <div>
-      <a href="javascript:void(0)" onClick={() => setPage("productlisting")}>
-        {" "}ProductListing
-      </a>
-      <a href="javascript:void(0)" onClick={() => setPage("cart")}> Cart</a>
-      <a href="javascript:void(0)" onClick={() => setPage("productpage")}>
-        {" "}ProductPage
-      </a>
       <AppContainer>
         {getComponentToBeRendered(page)}
       </AppContainer>
@@ -28,24 +21,33 @@ const render = page => {
 render("productlisting");
 
 DataStore.subscribe(function() {
-  render("productlisting");
+  render(DataStore.currentPage);
 });
 
 function setPage(page) {
+  DataStore.currentPage = page;
   render(page);
 }
 
 function getComponentToBeRendered(page) {
   if (page === "productpage") {
-    return <ProductPage productDetails={DataStore.getStore().productPageData} />;
+    return (
+      <ProductPage
+        productDetails={DataStore.getStore().productPageData}
+        cartDataLength={DataStore.getStore().cartData.length}
+        setPage={setPage}
+      />
+    );
   } else if (page === "cart") {
-    return <Cart cartData={DataStore.getStore().cartData} />;
+    return <Cart cartData={DataStore.getStore().cartData} setPage={setPage} showProductPage={() => setPage("productpage")}/>;
   } else {
     return (
       <ProductListing
         products={DataStore.getStore().products}
         filters={DataStore.getStore().filters}
         showProductPage={() => setPage("productpage")}
+        setPage={setPage}
+        cartDataLength={DataStore.getStore().cartData.length}
       />
     );
   }
