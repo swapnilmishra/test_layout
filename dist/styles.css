@@ -50,6 +50,7 @@ body{
   padding-right: 10px;
   padding: 8px 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .productpage {
@@ -65,6 +66,12 @@ body{
 }
 
 /* filter styles */
+
+.productpage .filters {
+  background-color: #fff;
+  border-right: 1px solid #eaefed;
+  padding-left: 10px;
+}
 
 .filter-name {
   text-transform: capitalize;
@@ -108,4 +115,44 @@ body{
   content: '✔';
   position: absolute;
   color: #09ad7e;
+}
+
+/* Top navbar styles */
+
+.top-navbar {
+  background-color: #fff;
+  height: 60px;
+  border-bottom: 1px solid #eaefed;
+}
+
+.top-navbar .navbar-actions{
+  display: flex;
+  flex-direction: row;
+  flex-flow: row-reverse;
+}
+
+.top-navbar .nav-button{
+  padding: 10px 30px;
+}
+
+.cart-button{
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.cart-button .cart-badge {
+    position: absolute;
+    right: 0;
+    top: -8px;
+    color: #000;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    text-align: center;
+    line-height: 15px;
+    font-size: 11px;
+    background-color: #fff;
+}
 }

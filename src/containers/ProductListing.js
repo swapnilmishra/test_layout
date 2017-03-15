@@ -1,5 +1,6 @@
 import React from "react";
 import ProductGrid from "components/ProductGrid.jsx";
+import Navbar from "components/Navbar.jsx";
 import Filter from "components/Filter.jsx";
 import { filterByPrice, filterByBrand } from "utils/filter";
 import DataStore from "store/datastore";
@@ -13,14 +14,32 @@ class ProductListing extends React.Component {
     this.products = this.props.products;
   }
   render() {
-    const { filters } = this.props;
+    const { filters, cartDataLength } = this.props;
     return (
-      <div className='productpage'>
-        <div className='filters'>
-          {this.createProductFilters(filters)}
-        </div>
-        <div className='products'>
-          <ProductGrid products={this.products} addToCartCB={this.handleAddToCart} thumbClickCB={this.handleThumbClick}/>
+      <div>
+        <Navbar>
+          <div className='navbar-actions'>
+            <div className='cart-button'>
+              {cartDataLength ? <span className='cart-badge'>{cartDataLength}</span> : ''}
+              <a
+              href="javascript:void(0)"
+              className="button nav-button"
+              onClick={() => this.props.setPage("cart")}
+            >Cart</a>
+            </div>
+          </div>
+        </Navbar>
+        <div className='productpage'>
+          <div className="filters">
+            {this.createProductFilters(filters)}
+          </div>
+          <div className="products">
+            <ProductGrid
+              products={this.products}
+              addToCartCB={this.handleAddToCart}
+              thumbClickCB={this.handleThumbClick}
+            />
+          </div>
         </div>
       </div>
     );
@@ -58,48 +77,48 @@ class ProductListing extends React.Component {
   handleAddFilter = (filterBy, value) => {
     if (filterBy === "price") {
       priceFilters.add(value);
+    } else if (filterBy === "brand") {
+      brandFilters.add(value);
     }
-    else if (filterBy === "brand") {
-      brandFilters.add(value)
-    }
-    this.setProductStore()
-  }
+    this.setProductStore();
+  };
 
   handleRemoveFilter = (filterBy, value) => {
     let filteredProducts = DataStore.originalData;
     if (filterBy === "price") {
       priceFilters.delete(value);
-    }
-    else if (filterBy === "brand") {
+    } else if (filterBy === "brand") {
       brandFilters.delete(value);
     }
-    this.setProductStore()
-  }
-  
+    this.setProductStore();
+  };
+
   /**
    * Brand filter takes precedence over price filter i.e whenever a brand filter is applied
    * filtering is done on originalData after which any other filter i.e price is applied
    */
-  setProductStore(){
+  setProductStore() {
     let filteredProducts = DataStore.originalData;
-    if(brandFilters.size > 0){
+    if (brandFilters.size > 0) {
       filteredProducts = filterByBrand(filteredProducts, brandFilters);
     }
-    if(priceFilters.size > 0 ){
-      filteredProducts = filterByPrice(filteredProducts, priceFilters)
+    if (priceFilters.size > 0) {
+      filteredProducts = filterByPrice(filteredProducts, priceFilters);
     }
-    DataStore.setStore('products',filteredProducts)
+    DataStore.setStore("products", filteredProducts);
   }
 
-  handleAddToCart(productData){
-    const store = DataStore.getStore()
-    store.cartData.push(productData)
+  handleAddToCart(productData) {
+    const store = DataStore.getStore();
+    const temp = store.cartData.concat([]);
+    temp.push(productData);
+    DataStore.setStore("cartData", temp);
   }
 
-  handleThumbClick = (productData) => {
-    const store = DataStore.getStore()
-    store.productPageData = productData
-    this.props.showProductPage()
-  }
+  handleThumbClick = productData => {
+    const store = DataStore.getStore();
+    store.productPageData = productData;
+    this.props.showProductPage();
+  };
 }
 export default ProductListing;
