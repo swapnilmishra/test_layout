@@ -8,12 +8,13 @@ class Filter extends React.Component {
     let key=0;
     return (
       <div>
-        <h4>{this.props.data.name}</h4>
+        <h4 className='filter-name'>{this.props.data.name}</h4>
         {this.props.data.values.map(item => {
             return (
-                <div key={key++}>
-                    <input type='checkbox' value={item} onChange={this.handleFilterClick}/>
-                    <span>{item}</span>
+                <div key={key++} className='checkbox'>
+                  <input type='checkbox' value={item} onChange={this.handleFilterClick}/>
+                  <span></span>
+                  <span className='checkbox-label'>{item}</span>
                 </div>
             )
         })}

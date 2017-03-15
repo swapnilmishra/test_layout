@@ -15,9 +15,13 @@ class ProductListing extends React.Component {
   render() {
     const { filters } = this.props;
     return (
-      <div>
-        {this.createProductFilters(filters)}
-        <ProductGrid products={this.products} addToCartCB={this.handleAddToCart} thumbClickCB={this.handleThumbClick}/>
+      <div className='productpage'>
+        <div className='filters'>
+          {this.createProductFilters(filters)}
+        </div>
+        <div className='products'>
+          <ProductGrid products={this.products} addToCartCB={this.handleAddToCart} thumbClickCB={this.handleThumbClick}/>
+        </div>
       </div>
     );
   }

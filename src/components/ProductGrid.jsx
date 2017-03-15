@@ -7,7 +7,7 @@ class ProductGrid extends React.Component {
   }
   render() {
     return (
-      <div className='flex-container'>
+      <div className='product-grid-container'>
         {this.getGridItems(this.props.products)}
       </div>
     );

@@ -8,10 +8,12 @@ class ProductThumb extends React.Component {
     const {productDetails} = this.props
     const imagePath = `img/${productDetails.image}`
     return (
-      <div className='flex-child' onClick={this.handleThumbClick}>
-        <div>{productDetails.name}</div>
-        <img src={imagePath} alt="{productDetails.name}"/>
-        <button onClick={this.handleAddToCart}> Add to cart</button>
+      <div className='product-preview' onClick={this.handleThumbClick}>
+        <img className='product-img' src={imagePath} alt="{productDetails.name}"/>
+        <div className='product-details'>{productDetails.name}</div>
+        <div>{productDetails.measurement}</div>
+        <h4>$ {productDetails.price}</h4>
+        <button onClick={this.handleAddToCart} className='add-to-cart button'> Add to cart</button>
       </div>
     );
   }
