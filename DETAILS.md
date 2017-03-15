@@ -7,7 +7,8 @@ npm start // runs local webpack dev server
 
 webpack-dev-middleware is used to run local server with hot reloading of assets.
 
-Running ```npm run build:prod``` outputs prduction ready bundlejs.
+Running ```npm run build:prod``` outputs prduction ready bundlejs.(_CSS and assets minification is yet to be done._)
+
 Dev build uses dev.js and production build prod.js configs.
 
 ## Note
