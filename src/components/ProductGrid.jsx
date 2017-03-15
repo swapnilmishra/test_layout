@@ -1,3 +1,7 @@
+/**
+ * ProductGrid creates grid of product which are passed into it.
+ * It internally used ProductThumb component to render an item of grid
+ */
 import React from "react";
 import ProductThumb from 'components/ProductThumb.jsx'
 
@@ -20,4 +24,11 @@ class ProductGrid extends React.Component {
     })
   }
 }
+
+ProductGrid.propTypes = {
+  products : React.PropTypes.any.isRequired && React.PropTypes.array,
+  thumbClickCB : React.PropTypes.any.isRequired,
+  addToCartCB : React.PropTypes.any.isRequired
+}
+
 export default ProductGrid;
